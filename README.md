@@ -1,4 +1,4 @@
-﻿#  Домашнее задание к занятию «Система мониторинга Zabbix Часть 2»
+﻿#  Домашнее задание к занятию «Disaster recovery и Keepalived»
 
 ---
 
@@ -6,83 +6,71 @@
 ---
 
 #### Задание № 1 
-- `Создание своего шаблона, в котором будут элементы данных, мониторящие загрузку CPU и RAM хоста.`
+
+- `Дана схема для Cisco Packet Tracer.`
+- `На данной схеме уже настроено отслеживание интерфейсов маршрутизаторов Gi0/1 (для нулевой группы)`
+- `Необходимо аналогично настроить отслеживание состояния интерфейсов Gi0/0 (для первой группы).`
+- `Для проверки корректности настройки, разорвите один из кабелей между одним из маршрутизаторов и Switch0 и запустите ping между PC0 и Server0.`
+- `На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.`
 
 ---
 `Решение`
-- Был создан шаблон  `CPU-MEM-WORK-1` и в нем созданы 2 элемента данных.
-- `1` CPU IN %  `Мониторинг загрузки процессора в процентах`
-- `2` MEMORY IN % `Мониторинг загрузки памяти в процентах`
 
-> Для создания элемента данных были использованы следующие Поддерживаемые ключи элементов
-> Для CPU IN %  `system.cpu.util`
-> Для MEMORY IN % `vm.memory.size`
-![1-7](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_1/7.png)
-![1-8](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_1/8.png)
+
+[ФАЙЛ CISCO - ptk  ](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/File/cisco.pkt)
+
+- `Cкриншоты настройки маршрутизаторов`
+
+![1-1](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/1.png)
 ---
-- `Ход выполнения задания.`
-![1-1](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_1/1.png)
+
+- `Команда ping`
+![1-2](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/2.png)
+![1-3](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/3.png)
+![1-4](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/4.png)
+![1-5](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/5.png)
+![1-6](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/6.png)
+![1-7](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/7.png)
+![1-8](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/8.png)
+![1-9](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/9.png)
+![1-10](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/10.png)
+![1-11](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/11.png)
+![1-12](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Cisco/12.png)
+
 ---
-- `На скриншоте представлены пустые Элементы данных`
-![1-2](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_1/2.png)
----
-- `Начало создания Элемента данных`
-![1-3](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_1/3.png)
-![1-4](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_1/4.png)
-![1-5](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_1/5.png)
----
-- `Созданные Элементы данных`
-![1-6](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_1/6.png)
 
 #### Задание № 2 
-- `Добавить в Zabbix два хоста и задайть им имена <фамилия и инициалы-1> и <фамилия и инициалы-2>. Например: ivanovii-1 и ivanovii-2.`
-- `Прикрепить за каждым хостом шаблон Linux by Zabbix Agent`
-- `Проверить что в разделе Latest Data начали появляться данные с добавленных агентов`
 
---- 
+- `Запустить две виртуальные машины Linux, установить и настроить сервис Keepalived, используя пример конфигурационного файла.`
+- `Настроить любой веб-сервер (например, nginx или simple python server) на двух виртуальных машинах `
+- `Написать Bash-скрипт, который будет проверять доступность порта данного веб-сервера и существование файла index.html в root-директории данного веб-сервера. `
+- `Настроить Keepalived так, чтобы он запускал данный скрипт каждые 3 секунды и переносил виртуальный IP на другой сервер, если bash-скрипт завершался с кодом, отличным от нуля (то есть порт веб-сервера был недоступен или отсутствовал index.html). Использовать для этого секцию vrrp_script `
+- `На проверку отправьте получившейся bash-скрипт и конфигурационный файл keepalived, а также скриншот с демонстрацией переезда плавающего ip на другой сервер в случае недоступности порта или файла index.html `
+
+
+
 `Решение`
 
-- `Добавленные и переименованные хосты`
-![2-1](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_2/2.png)
----
-- `Добавленные шаблоны Linux by Zabbix Agent`
-![2-2](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_2/3.png)
-![2-3](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_2/4.png)
----
-- `Раздел Latest Data с свежими данными.`
-![2-4](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_2/5.png)
-![2-5](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_2/6.png)
----
+[ФАЙЛ скрипт check.sh ](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/File/check.sh)
 
-#### Задание № 3 
-- `Привязать созданный шаблон к двум хостам. Также привязать к обоим хостам шаблон Linux by Zabbix Agent.`
-- `Проверить что в раздел Latest Data начали поступать необходимые данные из созданного шаблона`
+[ФАЙЛ конфигурации SERVER-1](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/File/keepalived.conf)
 
----
-`Решение`
-- `HOST №1`
-![3-1](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_3/1.png)
-![3-2](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_3/3.png)
-![3-3](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_3/4.png)
-![3-4](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_3/2.png)
-![3-5](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_3/5.png)
----
-- `HOST №2`
-![3-6](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_3/6.png)
-![3-7](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_3/7.png)
-![3-8](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_3/9.png)
-![3-9](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_3/8.png)
-![3-10](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_3/10.png)
----
-#### Задание № 3 
-- `Создайте свой кастомный дашборд.`
+[ФАЙЛ конфигурации SERVER-2](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/File/keepalived-2.conf)
 
----
-`Решение`
-![4-1](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_4/1.png)
-![4-2](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_4/2.png)
-![4-3](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_4/3.png)
-![4-4](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_4/4.png)
-![4-5](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_4/5.png)
-![4-6](https://github.com/MaximMantr/Monitoring/blob/zabbix_2/img/Zabbix_2/work_4/6.png)
+- `Весь процесс представлен в виде скриншотов`
+![2-1](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/1.png)
+![2-2](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/2.png)
+![2-3](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/3.png)
+![2-4](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/4.png)
+![2-5](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/5.png)
+![2-6](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/6.png)
+
+- `После того как мы переименовали index файл. Видем что при проверки наш скрипт его не нашол и наш ip адресс переназначился на 2 SERVER.`
+![2-7](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/7.png)
+![2-8](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/8.png)
+![2-9](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/9.png)
+![2-10](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/10.png)
+![2-11](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/11.png)
+![2-12](https://github.com/MaximMantr/Fault_tolerance/blob/master/Disaster_recovery_and_Keepalived_imag/Keepalived/12.png)
+
 > ### Спосибо за внимание!
